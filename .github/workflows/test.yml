@@ -1,49 +1,49 @@
-name: Run Selenium Tests
+name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      flask:
-        image: tiangolo/uwsgi-nginx-flask:python3.8
-        ports:
-          - 5000:80
-        options: >-
-          --health-cmd "curl --fail http://localhost:5000 || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Debug file structure
+      run: ls -la  # Llista els fitxers per depurar
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.8'
+        python-version: "3.10"
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flask selenium
+        pip install -r requirements.txt
 
-    - name: Install Google Chrome
+    - name: Install Chrome and ChromeDriver
       run: |
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
+        sudo apt-get install -y chromium-chromedriver
+        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/local/bin/chromedriver
 
-    - name: Install ChromeDriver
+    - name: Verify Chrome and ChromeDriver
       run: |
-        sudo apt-get install -y unzip
-        wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-        sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+        google-chrome --version || (echo "Chrome no està instal·lat correctament" && exit 1)
+        chromedriver --version || (echo "ChromeDriver no està instal·lat correctament" && exit 1)
 
-    - name: Run tests
+    - name: Start Flask app
       run: |
-        python /c:/Users/licen/Desktop/Selenium\ github\ actions/workflows/app.py &
-        sleep 5
+        python /c:/Users/licen/Desktop/Selenium\ github\ actions/workflows/app.py > flask.log 2>&1 &
+        sleep 10  # Dona temps perquè Flask es posi en marxa
+        curl -f http://127.0.0.1:5000 || (echo "Flask no està en execució" && cat flask.log && exit 1)
+
+    - name: Run Selenium tests
+      run: |
         python -m unittest discover -s /c:/Users/licen/Desktop/Selenium\ github\ actions/workflows -p "test_functional.py"
