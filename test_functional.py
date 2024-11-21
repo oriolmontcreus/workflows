@@ -1,4 +1,3 @@
-
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -29,7 +28,7 @@ class ProvaAplicacioFlask(unittest.TestCase):
         numero2.send_keys("xyz")
         numero2.send_keys(Keys.RETURN)
         
-        error_message = driver.find_element(By.ID, "error").text
+        error_message = driver.find_element(By.XPATH, "//p[@style='color: red;']").text
         self.assertEqual(error_message, "Tots els camps han de contenir números vàlids!")
 
     def tearDown(self):

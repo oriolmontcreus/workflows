@@ -32,7 +32,7 @@ def index():
             <label for="result">Resultat:</label>
             <input type="text" id="result" name="result" value="{{ result }}" readonly><br><br>
             {% if error %}
-                <p style="color: red;">{{ error }}</p>
+                <p id="error" style="color: red;">{{ error }}</p>
             {% endif %}
         </form>
     </body>
