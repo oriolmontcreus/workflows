@@ -2,11 +2,16 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 
 class FlaskAppTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
         cls.driver = webdriver.Chrome()
         cls.driver.get("http://127.0.0.1:5000")
 
