@@ -14,14 +14,12 @@ class TestWebApp(unittest.TestCase):
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         service = Service("/usr/local/bin/chromedriver")
-        options.binary_location = "/usr/bin/google-chrome"
         cls.driver = webdriver.Chrome(service=service, options=options)
         cls.driver.get("http://127.0.0.1:5000/")
 
     @classmethod
     def tearDownClass(cls):
-        print("El navegador es mantindrà obert. Tanca'l manualment si cal.")
-        # cls.driver.quit()
+        cls.driver.quit()
 
     def test_suma(self):
         driver = self.driver

@@ -13,9 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Debug file structure
-      run: ls -la  # Llista els fitxers per depurar
-
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -31,9 +28,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
         sudo apt-get install -y chromium-chromedriver
-        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/local/bin/chromedriver
-        sudo ln -s /usr/bin/google-chrome-stable /usr/local/bin/google-chrome  # Updated link
-        ls -la /usr/local/bin/chromedriver
+        sudo ln -s /usr/bin/chromedriver /usr/local/bin/chromedriver
 
     - name: Verify Chrome and ChromeDriver
       run: |
@@ -43,7 +38,7 @@ jobs:
     - name: Start Flask app
       run: |
         python app.py > flask.log 2>&1 &
-        sleep 10  # Dona temps perquè Flask es posi en marxa
+        sleep 10
         curl -f http://127.0.0.1:5000 || (echo "Flask no està en execució" && cat flask.log && exit 1)
 
     - name: Run Selenium tests
