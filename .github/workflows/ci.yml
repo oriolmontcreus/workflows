@@ -34,7 +34,6 @@ jobs:
     - name: Install Chrome WebDriver
       run: |
         sudo apt-get install -y chromium-chromedriver
-        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
 
     - name: Start Flask app
       run: |
