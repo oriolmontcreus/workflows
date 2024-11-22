@@ -46,4 +46,4 @@ jobs:
 
     - name: Run Selenium tests
       run: |
-        python -m unittest discover -s /home/runner/work/Selenium_github_actions/workflows -p "test_functional.py"
+        python -m unittest discover -s Selenium_github_actions/workflows -p "test_functional.py"
