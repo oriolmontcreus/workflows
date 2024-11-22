@@ -1,4 +1,3 @@
-
 name: Flask App CI
 
 on: [push]
@@ -29,8 +28,8 @@ jobs:
 
     - name: Start Flask app
       run: |
-        nohup python /c:/Users/licen/Desktop/Selenium github actions/workflows/app.py &
+        nohup python app.py &
 
     - name: Run tests
       run: |
-        python /c:/Users/licen/Desktop/Selenium github actions/workflows/run_tests.py
+        python run_tests.py
