@@ -44,6 +44,6 @@ jobs:
         sleep 10  # Dona temps perquè Flask es posi en marxa
         curl -f http://127.0.0.1:5000 || (echo "Flask no està en execució" && cat flask.log && exit 1)
 
-   - name: Run Selenium tests
+    - name: Run Selenium tests
       run: |
-        python -m unittest discover -s Selenium_github_actions -p "test_functional.py"
+        python -m unittest discover -s . -p "test_functional.py"
