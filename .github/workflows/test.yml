@@ -32,6 +32,7 @@ jobs:
         sudo apt-get install -y google-chrome-stable
         sudo apt-get install -y chromium-chromedriver
         sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/local/bin/chromedriver
+        sudo ln -s /usr/bin/google-chrome /usr/local/bin/google-chrome
         ls -la /usr/local/bin/chromedriver
 
     - name: Verify Chrome and ChromeDriver
