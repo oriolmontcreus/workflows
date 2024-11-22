@@ -58,6 +58,6 @@ jobs:
         driver.quit()
         "
 
-    - name: Run tests
+    - name: Run tests2
       run: | 
       python -m unittest discover -s tests -v
