@@ -13,8 +13,8 @@ class TestWebApp(unittest.TestCase):
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-        service = Service("/usr/local/bin/chromedriver")
-        options.binary_location = "/usr/local/bin/chromedriver"
+        service = Service("/usr/lib/chromium-browser/chromedriver")
+        options.binary_location = "/usr/lib/chromium-browser/chromedriver"
         cls.driver = webdriver.Chrome(service=service, options=options)
         cls.driver.get("http://127.0.0.1:5000/")
 
