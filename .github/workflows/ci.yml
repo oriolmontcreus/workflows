@@ -29,13 +29,12 @@ jobs:
     - name: Install Chrome dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y xvfb
         sudo apt-get install -y google-chrome-stable
 
-    - name: Start Xvfb
+    - name: Install Chrome WebDriver
       run: |
-        Xvfb :99 -ac &
-        export DISPLAY=:99
+        sudo apt-get install -y chromium-chromedriver
+        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
 
     - name: Start Flask app
       run: |
