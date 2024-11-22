@@ -1,0 +1,36 @@
+
+name: Flask App CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flask selenium
+
+    - name: Start Flask app
+      run: |
+        nohup python /c:/Users/licen/Desktop/Selenium github actions/workflows/app.py &
+
+    - name: Run tests
+      run: |
+        python /c:/Users/licen/Desktop/Selenium github actions/workflows/run_tests.py
